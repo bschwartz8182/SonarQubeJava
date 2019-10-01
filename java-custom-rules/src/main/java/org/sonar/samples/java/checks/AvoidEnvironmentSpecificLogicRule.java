@@ -34,6 +34,8 @@ public class AvoidEnvironmentSpecificLogicRule extends IssuableSubscriptionVisit
 		environmentNames.add("DEVELOPMENT");
 		environmentNames.add("EVAL");
 		environmentNames.add("EVALUATION");
+		environmentNames.add("INT");
+		environmentNames.add("INTEGRATION");
 		environmentNames.add("PRE-PROD");
 		environmentNames.add("PRE-PRODUCTION");
 		environmentNames.add("PROD");
