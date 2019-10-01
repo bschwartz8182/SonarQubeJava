@@ -1,0 +1,22 @@
+<p>Use a logger utility instead of System.out.println</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+        try{
+            report.generate();
+        }catch(NullPointerException e){
+            System.out.println("Could not generate report " + e.toString()); // Noncompliant
+        }
+        return;
+    } 
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+	public void loggingWithoutID(String nonsense){
+        try{
+            report.generate();
+        }catch(NullPointerException e){
+            logger.error("Could Not Generate Report",e);
+        }
+        return;
+    } 
+</pre>

@@ -1,0 +1,24 @@
+<p>Always log a summary and the exception in a catch block</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+	public void loggingWithOutException(){   
+        logger.error("only the logger");
+        try{
+            logger.error("this is an error");
+        }catch(NullPointerException e){
+            logger.error("without an exception");
+        }
+        return;
+    } 
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+	public void loggingWithoutID(String nonsense){
+        try{
+            logger.error("this is an error");
+        }catch(NullPointerException e){
+            logger.error("with an exception provided",e);
+        }
+        return;
+    } 
+</pre>

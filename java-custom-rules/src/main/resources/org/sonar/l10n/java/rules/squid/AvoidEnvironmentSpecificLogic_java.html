@@ -1,0 +1,32 @@
+<p>Avoid having code that is environment-specific</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+     public void showEnvironmentLogic(){   
+        String environment = System.getProperty("Environment");
+    	
+        if (environment.equalsIgnoreCase("PRODUCTION")) {  // Noncompliant
+    		//Perform task specific to production
+    	}
+    	else {
+    		//Perform task for all other environments
+    	}
+        return;
+        
+        if (environment.equals("PRODUCTION")) {  // Noncompliant
+    		//Perform task specific to production
+    	}
+    	else {
+    		//Perform task for all other environments
+    	}
+        return;
+    }
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+	public void showWithoutEnvrironmentLogic(){
+        
+    	// Perform the same logic for all environments  
+    	
+    	return;
+    }
+</pre>

@@ -26,9 +26,12 @@ import java.util.List;
 import org.sonar.plugins.java.api.JavaCheck;
 import org.sonar.samples.java.checks.AvoidAnnotationRule;
 import org.sonar.samples.java.checks.AvoidBrandInMethodNamesRule;
+import org.sonar.samples.java.checks.AvoidEnvironmentSpecificLogicRule;
+import org.sonar.samples.java.checks.AvoidHardCodedDebugRule;
 import org.sonar.samples.java.checks.AvoidMethodDeclarationRule;
 import org.sonar.samples.java.checks.AvoidSuperClassRule;
 import org.sonar.samples.java.checks.AvoidUnmodifiableListRule;
+import org.sonar.samples.java.checks.IncludeExceptionInCatchBlockRule;
 import org.sonar.samples.java.checks.MyCustomSubscriptionRule;
 import org.sonar.samples.java.checks.SecurityAnnotationMandatoryRule;
 import org.sonar.samples.java.checks.SpringControllerRequestMappingEntityRule;
@@ -54,7 +57,10 @@ public final class RulesList {
       AvoidSuperClassRule.class,
       AvoidUnmodifiableListRule.class,
       MyCustomSubscriptionRule.class,
-      SecurityAnnotationMandatoryRule.class));
+      SecurityAnnotationMandatoryRule.class,
+      AvoidHardCodedDebugRule.class,
+      IncludeExceptionInCatchBlockRule.class,
+      AvoidEnvironmentSpecificLogicRule.class));
   }
 
   public static List<Class<? extends JavaCheck>> getJavaTestChecks() {
