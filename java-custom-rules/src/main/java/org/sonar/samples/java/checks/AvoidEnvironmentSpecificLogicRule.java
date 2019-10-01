@@ -35,6 +35,7 @@ public class AvoidEnvironmentSpecificLogicRule extends IssuableSubscriptionVisit
 		environmentNames.add("EVAL");
 		environmentNames.add("EVALUATION");
 		environmentNames.add("PRE-PROD");
+		environmentNames.add("PRE-PRODUCTION");
 		environmentNames.add("PROD");
 		environmentNames.add("PRODUCTION");
 		environmentNames.add("QA");
