@@ -42,6 +42,7 @@ public class AvoidEnvironmentSpecificLogicRule extends IssuableSubscriptionVisit
 		environmentNames.add("PRODUCTION");
 		environmentNames.add("QA");
 		environmentNames.add("SANDBOX");
+		environmentNames.add("SBX");
 		environmentNames.add("TEST");
 		
 		
