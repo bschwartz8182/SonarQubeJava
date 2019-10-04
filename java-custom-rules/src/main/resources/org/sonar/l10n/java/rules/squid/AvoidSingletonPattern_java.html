@@ -1,0 +1,32 @@
+<p>Singleton patterns introduce global state to the application, which makes it difficult
+   to run unit tests and violates a class instance's single responsibility principle.  This 
+   can cause many issues with containerized applications.
+</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+public class SingletonPattern { 
+
+	private SingletonPattern() {  // Noncompliant
+
+    }
+	 
+	private static SingletonPattern instance = new SingletonPattern();
+
+	public static SingletonPattern getInstance() {
+	        return instance;
+	}
+	    
+} 
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+public class NonSingletonClass { 
+
+	public NonSingletonClass() {  
+
+    }
+	 
+	.....
+	    
+} 
+</pre>
