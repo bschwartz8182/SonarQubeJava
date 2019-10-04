@@ -1,7 +1,6 @@
 package org.sonar.samples.java.checks;
 
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 import org.sonar.api.internal.google.common.collect.Lists;
@@ -12,13 +11,8 @@ import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.tree.ClassTree;
 import org.sonar.plugins.java.api.tree.MethodTree;
 import org.sonar.plugins.java.api.tree.Modifier;
-import org.sonar.plugins.java.api.tree.ModifierKeywordTree;
-import org.sonar.plugins.java.api.tree.ModifierTree;
-import org.sonar.plugins.java.api.tree.ModifiersTree;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
-import org.sonar.plugins.java.api.tree.TypeParameters;
-import org.sonar.plugins.java.api.tree.VariableTree;
 
 @Rule(
 		key = "AvoidSingletonPattern",
@@ -28,7 +22,8 @@ import org.sonar.plugins.java.api.tree.VariableTree;
 		 "to run unit tests and violates a class instance's single responsibility principle.  This " +
 		 "can cause many issues with containerized applications.",
 		priority = Priority.MAJOR,
-		tags = {"code_smell"})
+		tags = {"codesmell"})
+
 public class AvoidSingletonPatternRule extends IssuableSubscriptionVisitor {
 
 	@Override

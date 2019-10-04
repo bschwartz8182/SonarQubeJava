@@ -29,6 +29,7 @@ import org.sonar.samples.java.checks.AvoidBrandInMethodNamesRule;
 import org.sonar.samples.java.checks.AvoidEnvironmentSpecificLogicRule;
 import org.sonar.samples.java.checks.AvoidHardCodedDebugRule;
 import org.sonar.samples.java.checks.AvoidMethodDeclarationRule;
+import org.sonar.samples.java.checks.AvoidSingletonPatternRule;
 import org.sonar.samples.java.checks.AvoidSuperClassRule;
 import org.sonar.samples.java.checks.AvoidUnmodifiableListRule;
 import org.sonar.samples.java.checks.IncludeExceptionInCatchBlockRule;
@@ -60,7 +61,8 @@ public final class RulesList {
       SecurityAnnotationMandatoryRule.class,
       AvoidHardCodedDebugRule.class,
       IncludeExceptionInCatchBlockRule.class,
-      AvoidEnvironmentSpecificLogicRule.class));
+      AvoidEnvironmentSpecificLogicRule.class,
+      AvoidSingletonPatternRule.class));
   }
 
   public static List<Class<? extends JavaCheck>> getJavaTestChecks() {
