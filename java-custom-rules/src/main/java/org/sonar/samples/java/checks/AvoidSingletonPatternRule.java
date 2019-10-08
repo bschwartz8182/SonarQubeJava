@@ -3,7 +3,6 @@ package org.sonar.samples.java.checks;
 
 import java.util.List;
 
-import org.sonar.api.internal.google.common.collect.Lists;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.java.model.ModifiersUtils;
@@ -13,6 +12,8 @@ import org.sonar.plugins.java.api.tree.MethodTree;
 import org.sonar.plugins.java.api.tree.Modifier;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
+
+import com.google.common.collect.Lists;
 
 @Rule(
 		key = "AvoidSingletonPattern",
