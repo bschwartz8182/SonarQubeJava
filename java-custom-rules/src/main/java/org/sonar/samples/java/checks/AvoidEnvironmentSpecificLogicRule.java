@@ -4,13 +4,14 @@ package org.sonar.samples.java.checks;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.sonar.api.internal.google.common.collect.Lists;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.tree.LiteralTree;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
+
+import com.google.common.collect.Lists;
 
 @Rule(
 		key = "AvoidEnvironmentSpecificLogic",
