@@ -1,32 +1,32 @@
-<p>Singleton patterns introduce global state to the application, which makes it difficult
-   to run unit tests and violates a class instance's single responsibility principle.  This 
-   can cause many issues with containerized applications.
+<p>It is bad practice to assume that anything cached in memory or on disk will be available 
+on a future request or job – with many processes of each type running, chances are high that a future 
+request will be served by a different process.  This is especially critical in containerized 
+and/or cloud applications. Any state that needs to be saved should be persisted to an external 
+store, such as a database.
 </p>
 <h2>Noncompliant Code Example</h2>
 <pre>
-public class SingletonPattern { 
+import javax.ejb.Stateful; 
 
-	private SingletonPattern() {  // Noncompliant
 
-    }
-	 
-	private static SingletonPattern instance = new SingletonPattern();
+@Stateful  // Noncompliant
+public class Counter {
 
-	public static SingletonPattern getInstance() {
-	        return instance;
-	}
-	    
-} 
+    private int count = 0;
+
+    
+}
 </pre>
 <h2>Compliant Solution</h2>
 <pre>
-public class NonSingletonClass { 
+import javax.ejb.Stateless; 
 
-	public NonSingletonClass() {  
 
-    }
-	 
-	.....
-	    
-} 
+@Stateless
+public class Counter {
+
+    private int count = 0;
+
+    
+}
 </pre>
