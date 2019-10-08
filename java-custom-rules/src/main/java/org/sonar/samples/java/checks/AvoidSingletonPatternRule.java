@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.java.model.ModifiersUtils;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.tree.ClassTree;
 import org.sonar.plugins.java.api.tree.MethodTree;
 import org.sonar.plugins.java.api.tree.Modifier;
+import org.sonar.plugins.java.api.tree.ModifierKeywordTree;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
 
@@ -38,10 +38,14 @@ public class AvoidSingletonPatternRule extends IssuableSubscriptionVisitor {
 		String className = classTree.simpleName().toString();
 		MethodTree methodTree = (MethodTree) tree;
 		String constructorName = methodTree.simpleName().toString();
-			
-		if (constructorName.equalsIgnoreCase(className) &&
-			    ModifiersUtils.hasModifier(methodTree.modifiers(), Modifier.PRIVATE)) {
-			  reportIssue(tree, "Avoid the use of the Singleton pattern");
+		
+		if (constructorName.equalsIgnoreCase(className)) {
+			List<ModifierKeywordTree> modifiers = methodTree.modifiers().modifiers();
+			for (ModifierKeywordTree modifier : modifiers) {
+				if (modifier.modifier() == Modifier.PRIVATE) {
+					reportIssue(tree, "Avoid the use of the Singleton pattern");
+				}
+			}
 		}
 			
 		super.visitNode(tree);
