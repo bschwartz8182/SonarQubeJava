@@ -1,18 +1,13 @@
+import javax.ejb.Stateful; 
 
 /**
- * This is an example of the Singleton pattern and it should be avoid for any 
- * application that is a candidate for containerization or moving to a cloud platform.
+ * This is a classic pojo stateful session bean
  */
-public class SharingStatePattern { 
 
-	private SharingStatePattern() {  // Noncompliant
+@Stateful  // Noncompliant
+public class Counter {
 
-    }
-	 
-	private static SharingStatePattern instance = new SharingStatePattern();
+    private int count = 0;
 
-	public static SharingStatePattern getInstance() {
-	        return instance;
-	}
-	    
+    
 }

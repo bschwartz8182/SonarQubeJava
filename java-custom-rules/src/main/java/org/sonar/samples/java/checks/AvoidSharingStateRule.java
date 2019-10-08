@@ -5,11 +5,14 @@ import java.util.List;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
+import org.sonar.plugins.java.api.tree.AnnotationTree;
 import org.sonar.plugins.java.api.tree.ClassTree;
+import org.sonar.plugins.java.api.tree.IdentifierTree;
 import org.sonar.plugins.java.api.tree.MethodTree;
 import org.sonar.plugins.java.api.tree.Modifier;
 import org.sonar.plugins.java.api.tree.ModifierKeywordTree;
 import org.sonar.plugins.java.api.tree.Tree;
+import org.sonar.plugins.java.api.tree.TypeTree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
 
 import com.google.common.collect.Lists;
@@ -29,25 +32,23 @@ public class AvoidSharingStateRule extends IssuableSubscriptionVisitor {
 
 	@Override
 	public List<Kind> nodesToVisit() {
-		return Lists.newArrayList(Kind.CONSTRUCTOR);
+		return Lists.newArrayList(Kind.CLASS);
 	}
 
 	@Override
 	public void visitNode(Tree tree) {
-		ClassTree classTree = (ClassTree) tree.parent();
+		ClassTree classTree = (ClassTree) tree;
 		String className = classTree.simpleName().toString();
-		MethodTree methodTree = (MethodTree) tree;
-		String constructorName = methodTree.simpleName().toString();
 		
-		if (constructorName.equalsIgnoreCase(className)) {
-			List<ModifierKeywordTree> modifiers = methodTree.modifiers().modifiers();
-			for (ModifierKeywordTree modifier : modifiers) {
-				if (modifier.modifier() == Modifier.PRIVATE) {
-					reportIssue(tree, "Avoid the use of the Singleton pattern");
-				}
-			}
-		}
-			
-		super.visitNode(tree);
+		List<AnnotationTree> annotations =classTree.modifiers().annotations();
+
+	    for (AnnotationTree annotationTree : annotations) {
+	        TypeTree annotationType = annotationTree.annotationType();
+	          String annotationName = ((IdentifierTree) annotationType).name();
+	          if (annotationName.equalsIgnoreCase("Stateful")) {
+	        	 reportIssue(tree, "Avoid sharing state information with other processes");
+	          }
+	    }
+	    super.visitNode(tree);
 	}
 }
