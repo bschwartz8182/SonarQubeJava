@@ -1,0 +1,32 @@
+<p>It is bad practice to assume that anything cached in memory or on disk will be available 
+on a future request or job – with many processes of each type running, chances are high that a future 
+request will be served by a different process.  This is especially critical in containerized 
+and/or cloud applications. Any state that needs to be saved should be persisted to an external 
+store, such as a database.
+</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import javax.ejb.Stateful; 
+
+
+@Stateful  // Noncompliant
+public class Counter {
+
+    private int count = 0;
+
+    
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import javax.ejb.Stateless; 
+
+
+@Stateless
+public class Counter {
+
+    private int count = 0;
+
+    
+}
+</pre>
