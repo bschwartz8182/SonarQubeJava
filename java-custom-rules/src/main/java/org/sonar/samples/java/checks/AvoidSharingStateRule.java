@@ -38,7 +38,6 @@ public class AvoidSharingStateRule extends IssuableSubscriptionVisitor {
 	@Override
 	public void visitNode(Tree tree) {
 		ClassTree classTree = (ClassTree) tree;
-		String className = classTree.simpleName().toString();
 		
 		List<AnnotationTree> annotations =classTree.modifiers().annotations();
 
