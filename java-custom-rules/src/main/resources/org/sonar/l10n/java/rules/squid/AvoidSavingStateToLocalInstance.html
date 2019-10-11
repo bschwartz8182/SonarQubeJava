@@ -1,0 +1,32 @@
+<p>
+Avoid saving session or other state information to a local instance.  Application nodes 
+Running in a containerized environment are ephemeral and can at anytime without warning. 
+Any state information should be written to an external store, such as a database or an 
+in memory cache platform that allows for persisting state (e.g. Redis).
+</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+import javax.ejb.Stateful; 
+
+
+@Stateful  // Noncompliant
+public class Counter {
+
+    private int count = 0;
+
+    
+}
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+import javax.ejb.Stateless; 
+
+
+@Stateless
+public class Counter {
+
+    private int count = 0;
+
+    
+}
+</pre>
