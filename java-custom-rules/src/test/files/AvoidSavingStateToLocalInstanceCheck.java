@@ -2,7 +2,9 @@
 public class SavingStateExample {
 
     public SavingStateExample() { 
-	  file example1 = new File("/home/savesession.txt"); // Noncompliant
+      FileOutputStream example1 = new FileOutputStream(); // Noncompliant
+	  FileWriter example2 = new FileWriter(); // Noncompliant  
+      BufferedWriter example3 = new BufferedWriter(); // Noncompliant
     }
     
 }

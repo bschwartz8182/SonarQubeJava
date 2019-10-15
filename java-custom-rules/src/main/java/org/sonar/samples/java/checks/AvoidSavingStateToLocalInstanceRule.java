@@ -2,21 +2,11 @@ package org.sonar.samples.java.checks;
 
 import java.util.List;
 
-import org.sonar.api.internal.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.java.model.expression.IdentifierTreeImpl;
 import org.sonar.java.model.expression.NewClassTreeImpl;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
-import org.sonar.plugins.java.api.tree.AnnotationTree;
-import org.sonar.plugins.java.api.tree.AssignmentExpressionTree;
-import org.sonar.plugins.java.api.tree.ClassTree;
-import org.sonar.plugins.java.api.tree.IdentifierTree;
-import org.sonar.plugins.java.api.tree.MethodInvocationTree;
-import org.sonar.plugins.java.api.tree.MethodTree;
-import org.sonar.plugins.java.api.tree.ModifiersTree;
 import org.sonar.plugins.java.api.tree.Tree;
-import org.sonar.plugins.java.api.tree.TypeTree;
 import org.sonar.plugins.java.api.tree.Tree.Kind;
 
 import com.google.common.collect.Lists;
@@ -43,8 +33,11 @@ public class AvoidSavingStateToLocalInstanceRule extends IssuableSubscriptionVis
 	public void visitNode(Tree tree) {
 	
 		NewClassTreeImpl expression = (NewClassTreeImpl) tree;
+		String instanceName = expression.getConstructorIdentifier().name();
 		
-		if (expression.getConstructorIdentifier().name().startsWith("File")) {
+		if (instanceName.equals("FileOutputStream") || 
+			instanceName.equals("FileWriter") ||
+			instanceName.equals("BufferedWriter")) {
 			System.out.println("name: " + expression.getConstructorIdentifier().name());
 		    reportIssue(tree, "Avoid sharing state information with other processes");
 		}
