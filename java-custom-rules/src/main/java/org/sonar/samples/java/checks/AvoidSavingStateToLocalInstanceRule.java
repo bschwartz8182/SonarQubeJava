@@ -12,8 +12,8 @@ import org.sonar.plugins.java.api.tree.Tree.Kind;
 import com.google.common.collect.Lists;
 
 @Rule(
-		key = "AvoidSharingState",
-		name = "Avoid sharing state information with other processes",
+		key = "AvoidSavingStateToLocalInstance",
+		name = "Avoid Saving State Directly to a Local Instance",
 		description = 
 		 "It is bad practice to assume that anything cached in memory or on disk will be available " +
 		 "on a future request or job – with many processes of each type running, chances are high that a future " +
