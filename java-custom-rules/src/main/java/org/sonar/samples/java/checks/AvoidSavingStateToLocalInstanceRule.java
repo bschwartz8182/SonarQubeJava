@@ -2,10 +2,14 @@ package org.sonar.samples.java.checks;
 
 import java.util.List;
 
+import org.sonar.api.internal.google.common.collect.ImmutableList;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.java.model.expression.IdentifierTreeImpl;
+import org.sonar.java.model.expression.NewClassTreeImpl;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.tree.AnnotationTree;
+import org.sonar.plugins.java.api.tree.AssignmentExpressionTree;
 import org.sonar.plugins.java.api.tree.ClassTree;
 import org.sonar.plugins.java.api.tree.IdentifierTree;
 import org.sonar.plugins.java.api.tree.MethodInvocationTree;
@@ -18,13 +22,13 @@ import org.sonar.plugins.java.api.tree.Tree.Kind;
 import com.google.common.collect.Lists;
 
 @Rule(
-		key = "AvoidSavingStateToLocalInstance",
-		name = "Avoid saving state directly to a local instance",
+		key = "AvoidSharingState",
+		name = "Avoid sharing state information with other processes",
 		description = 
-		 "Avoid saving session or other state information to a local instance.  Application nodes " +
-		 "Running in a containerized environment are ephemeral and can at anytime without warning. " +
-		 "Any state information should be written to an external store, such as a database or an " +
-		 "in memory cache platform that allows for persisting state (e.g. Redis)",
+		 "It is bad practice to assume that anything cached in memory or on disk will be available " +
+		 "on a future request or job – with many processes of each type running, chances are high that a future " +
+		 "request will be served by a different process.  This is especially critical in containerized and/or cloud applications. " +
+		 "Any state that needs to be saved should be persisted to an external store, such as a database.",
 		priority = Priority.MAJOR,
 		tags = {"codesmell"})
 
@@ -32,33 +36,36 @@ public class AvoidSavingStateToLocalInstanceRule extends IssuableSubscriptionVis
 
 	@Override
 	public List<Kind> nodesToVisit() {
-		return Lists.newArrayList(Kind.METHOD_INVOCATION);
+		return Lists.newArrayList(Kind.NEW_CLASS);
 	}
 
 	@Override
 	public void visitNode(Tree tree) {
-		
-		if (tree.is(Tree.Kind.METHOD_INVOCATION)) {
-			MethodInvocationTree mit = (MethodInvocationTree) tree;
-			String mname = mit.symbol().name();
-			System.out.println("Invoked Method  "+ mname );
-	    	reportIssue(tree, "Avoid sharing state information with other processes");
-        }
-		
 		/*
-		ClassTree classTree = (ClassTree) tree;
+		if (tree.is(Tree.Kind.CLASS)) {
+			ClassTree classTree = (ClassTree) tree;
 				
-  		List<AnnotationTree> annotations = classTree.modifiers().annotations();
+			List<AnnotationTree> annotations = classTree.modifiers().annotations();
 
-	    for (AnnotationTree annotationTree : annotations) {
-	        TypeTree annotationType = annotationTree.annotationType();
-	          String annotationName = ((IdentifierTree) annotationType).name();
-	          if (annotationName.equalsIgnoreCase("Stateful")) {
+			for (AnnotationTree annotationTree : annotations) {
+				TypeTree annotationType = annotationTree.annotationType();
+				String annotationName = ((IdentifierTree) annotationType).name();
+				if (annotationName.equalsIgnoreCase("Stateful")) {
 	        	 reportIssue(tree, "Avoid sharing state information with other processes");
-	          }
-	    }
-	    */
-	    super.visitNode(tree);
+				}
+			}
+		}
+		*/
+		//AssignmentExpressionTree assignment = (AssignmentExpressionTree) tree;
+		
+			NewClassTreeImpl expression = (NewClassTreeImpl) tree;
+			//IdentifierTreeImpl identifier = (IdentifierTreeImpl) expression.identifier();
+			System.out.println("name: " + expression.getConstructorIdentifier().name());
+	        if (expression.getConstructorIdentifier().name().startsWith("File")) {
+	        	 reportIssue(tree, "Avoid sharing state information with other processes");
+			}
+
+		super.visitNode(tree);
 
 	}
 }

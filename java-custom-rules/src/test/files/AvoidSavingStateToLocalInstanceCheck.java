@@ -1,8 +1,8 @@
-public class WriteStateLocally {
+
+public class SavingStateExample {
+
+    public SavingStateExample() { 
+	  file example1 = new File("/home/savesession.txt"); // Noncompliant
+    }
     
-	public void setResults() {  
-
-		File file = new File(); // Noncompliant
-
-	}
 }

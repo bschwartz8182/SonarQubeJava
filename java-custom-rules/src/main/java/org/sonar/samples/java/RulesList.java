@@ -29,6 +29,7 @@ import org.sonar.samples.java.checks.AvoidBrandInMethodNamesRule;
 import org.sonar.samples.java.checks.AvoidEnvironmentSpecificLogicRule;
 import org.sonar.samples.java.checks.AvoidHardCodedDebugRule;
 import org.sonar.samples.java.checks.AvoidMethodDeclarationRule;
+import org.sonar.samples.java.checks.AvoidSavingStateToLocalInstanceRule;
 import org.sonar.samples.java.checks.AvoidSharingStateRule;
 import org.sonar.samples.java.checks.AvoidSingletonPatternRule;
 import org.sonar.samples.java.checks.AvoidSuperClassRule;
@@ -64,7 +65,8 @@ public final class RulesList {
       IncludeExceptionInCatchBlockRule.class,
       AvoidEnvironmentSpecificLogicRule.class,
       AvoidSingletonPatternRule.class,
-      AvoidSharingStateRule.class));
+      AvoidSharingStateRule.class,
+      AvoidSavingStateToLocalInstanceRule.class));
   }
 
   public static List<Class<? extends JavaCheck>> getJavaTestChecks() {
