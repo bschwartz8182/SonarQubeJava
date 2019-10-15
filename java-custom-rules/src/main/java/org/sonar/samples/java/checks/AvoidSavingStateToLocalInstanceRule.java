@@ -41,29 +41,13 @@ public class AvoidSavingStateToLocalInstanceRule extends IssuableSubscriptionVis
 
 	@Override
 	public void visitNode(Tree tree) {
-		/*
-		if (tree.is(Tree.Kind.CLASS)) {
-			ClassTree classTree = (ClassTree) tree;
-				
-			List<AnnotationTree> annotations = classTree.modifiers().annotations();
-
-			for (AnnotationTree annotationTree : annotations) {
-				TypeTree annotationType = annotationTree.annotationType();
-				String annotationName = ((IdentifierTree) annotationType).name();
-				if (annotationName.equalsIgnoreCase("Stateful")) {
-	        	 reportIssue(tree, "Avoid sharing state information with other processes");
-				}
-			}
-		}
-		*/
-		//AssignmentExpressionTree assignment = (AssignmentExpressionTree) tree;
+	
+		NewClassTreeImpl expression = (NewClassTreeImpl) tree;
 		
-			NewClassTreeImpl expression = (NewClassTreeImpl) tree;
-			//IdentifierTreeImpl identifier = (IdentifierTreeImpl) expression.identifier();
+		if (expression.getConstructorIdentifier().name().startsWith("File")) {
 			System.out.println("name: " + expression.getConstructorIdentifier().name());
-	        if (expression.getConstructorIdentifier().name().startsWith("File")) {
-	        	 reportIssue(tree, "Avoid sharing state information with other processes");
-			}
+		    reportIssue(tree, "Avoid sharing state information with other processes");
+		}
 
 		super.visitNode(tree);
 
