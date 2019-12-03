@@ -27,9 +27,11 @@ public class AvoidHardCodedDebugRule extends IssuableSubscriptionVisitor {
 		if (tree.is(Tree.Kind.METHOD_INVOCATION)) {
 			MethodInvocationTree mit = (MethodInvocationTree) tree;
 	        String mname = mit.symbol().name();
-           if (mname.equalsIgnoreCase("println") || mname.equalsIgnoreCase("print")) {
-        	 reportIssue(mit.parent(),"Do not use System.out.println directly.  Use a logger utility like log4J instead.");  
-           }           
+	       if (mname != null) {
+	    	   if (mname.equalsIgnoreCase("println") || mname.equalsIgnoreCase("print")) {
+	    		   reportIssue(mit.parent(),"Do not use System.out.println directly.  Use a logger utility like log4J instead.");  
+	    	   }           
+	       }
         }
 	}
 }
