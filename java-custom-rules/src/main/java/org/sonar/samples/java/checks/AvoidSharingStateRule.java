@@ -43,10 +43,13 @@ public class AvoidSharingStateRule extends IssuableSubscriptionVisitor {
 
 	    for (AnnotationTree annotationTree : annotations) {
 	        TypeTree annotationType = annotationTree.annotationType();
-	          String annotationName = ((IdentifierTree) annotationType).name();
-	          if (annotationName.equalsIgnoreCase("Stateful")) {
-	        	 reportIssue(tree, "Avoid sharing state information with other processes");
-	          }
+	        if (annotationType instanceof IdentifierTree) {
+		          String annotationName = ((IdentifierTree) annotationType).name();
+		          if (annotationName.equalsIgnoreCase("Stateful")) {
+		        	 reportIssue(tree, "Avoid sharing state information with other processes");
+		          }
+
+	        }
 	    }
 	    super.visitNode(tree);
 
